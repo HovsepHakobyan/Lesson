@@ -1,6 +1,6 @@
 rovider "aws" {
-  region     = "eu-central-1"
- 
+  region = "eu-central-1"
+
 
 }
 
@@ -132,27 +132,27 @@ resource "aws_security_group" "game-secgroup" {
   name = "Dyinamic Security Group"
 
   dynamic "ingress" {
-    for_each = ["80", "443",]
+    for_each = ["80", "443", ]
     content {
-      from_port  = ingress.value
-      to_port    = ingress.value
-      protocol   = "tcp"
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
     }
   }
- egress {
-  from_port  = 0
-  to_port    = 0
-  protocol   = "-1"
-  cidr_blocks = ["0.0.0.0/0"]
- }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
-tags = {
-  Name = "Dynamic SecurityGroup"
+  tags = {
+    Name = "Dynamic SecurityGroup"
 
- }
-    }
-  
+  }
+}
+
 
 resource "aws_launch_configuration" "game-project-LC" {
   name            = "game-project-LC"
@@ -181,10 +181,10 @@ resource "aws_autoscaling_group" "game-ASG" {
       propagate_at_launch = true
 
     }
-    
+
 
   ]
-  
+
 }
 
 
@@ -200,11 +200,11 @@ resource "aws_elb" "game-ELB" {
     instance_protocol = "http"
   }
   health_check {
-    healthy_threshold  = 2
+    healthy_threshold   = 2
     unhealthy_threshold = 2
-    timeout            = 3
-    target             = "HTTP:80/"
-    interval           = 10
+    timeout             = 3
+    target              = "HTTP:80/"
+    interval            = 10
   }
   tags = {
     Name = "game-elb"
